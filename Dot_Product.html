@@ -1,0 +1,141 @@
+<html>
+<title>Dot Product Practice</title>
+<head>
+</head>
+<style>
+    .container {
+        margin-left: 0.5in;
+        margin-right: 0.5in;
+    }
+    .flex-container {
+      /* We first create a flex layout context */
+      display: flex;
+         
+      /* Then we define the flow direction
+         and if we allow the items to wrap
+       * Remember this is the same as:
+       * flex-direction: row;
+       * flex-wrap: wrap;
+       */
+      flex-flow: row wrap;
+       
+      /* Then we define how is distributed the remaining space */
+      /*justify-content: space-around;*/
+       
+      padding: 0; 
+      margin: 0;
+      list-style: none;
+    }
+    .slidecontainer {
+      width: 30%; /* Width of the outside container */
+      flex: 1 auto;
+    }
+    .slidecontainer2 {
+        width: 10%; /* Width of the outside container */
+        flex: 1 auto;
+      }
+    .bottom-one {
+       margin-bottom: 1cm;
+    }
+</style>
+<body>
+<div>Assume that A and B are vectors, using i-hat/j-hat notation.</div>
+<div class="container">
+    <p id="VecA"></p>
+    <br>
+    <p id="VecB"></p>
+    <p id="TEST"></p>
+</div>
+<br>
+<div style="width: 125px; position: absolute;">
+   <p>A &#183 B = </p>
+</div>
+<div style="position: absolute; margin-left: 75px; margin-top: 15px;">
+<form id="form">
+  <input type="text" id="result">
+  <button type="button" id="submit">Submit</button>
+</form>
+</div>
+<br>
+<div><br><br></div>
+<div id="Correct" style="width:175px; position: absolute;">
+  <p>Correct: 0</p>
+</div>
+<div id="Incorrect" style="width: 175px; position: absolute; margin-left: 125px;">
+  <p>Incorrect: 0</p>
+</div>
+<script>
+    var VecA = document.getElementById("VecA");
+    var Ax = 1;
+    var Ay = 2;
+
+    var VecB = document.getElementById("VecB");
+    var Bx = 3;
+    var By = 4;
+
+    var Dot = Ax*Bx + Ay*By;
+
+    var RES;
+    var Correct = 0;
+    var Incorrect = 0;
+    document.getElementById("Correct").innerHTML = "Correct: "+Correct;
+    document.getElementById("Incorrect").innerHTML = "Incorrect: "+Incorrect;
+
+
+    VecA.innerHTML = "A = " + Ax + "i + " + Ay + "j";
+    VecB.innerHTML = "B = " + Bx + "i + " + By + "j";
+    
+    function randomInt(){
+      return Math.floor(Math.random()*10);
+    }
+    function randomSign() {
+      return 2*Math.floor(Math.random()*2)-1;
+    }
+    function randomComponent(){
+      return randomInt()*randomSign()
+    }
+
+    function randomVecs() {
+      Ax = randomComponent();
+      Ay = randomComponent();
+      Bx = randomComponent();
+      By = randomComponent();
+      Dot = Ax*Bx + Ay*By;
+      if (Dot==0) {
+        Bx +=1;
+        Dot = Ax*Bx + Ay*By;
+      };
+    }
+
+    var submit = document.getElementById("submit");
+    submit.addEventListener("click", update);
+    function update() {
+      let res = document.getElementById("result").value;
+      if (!isNaN(res)) {
+        document.getElementById("TEST").innerHTML = "";
+        RES = Number(res);
+        if (RES==Dot) {
+          Correct += 1;
+        } else {
+          Incorrect += 1;
+        }
+        document.getElementById("Correct").innerHTML = "Correct: "+Correct;
+        document.getElementById("Incorrect").innerHTML = "Incorrect: "+Incorrect;
+
+        randomVecs();
+        VecA.innerHTML = "A = " + Ax + "i + " + Ay + "j";
+        VecB.innerHTML = "B = " + Bx + "i + " + By + "j";
+
+      } else {
+        document.getElementById("TEST").innerHTML = "Please enter a number!";
+      }
+    }
+
+    let form = document.querySelector("form");
+    form.addEventListener('submit', (event) =>{
+      event.preventDefault();
+    });
+    
+</script>
+</body>
+</html>
