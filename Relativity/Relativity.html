@@ -1,0 +1,100 @@
+<html>
+<title>Relativity Simulator</title>
+<head>
+</head>
+<style>
+    .flex-container {
+      /* We first create a flex layout context */
+      display: flex;
+      
+      /* Then we define the flow direction
+         and if we allow the items to wrap
+       * Remember this is the same as:
+       * flex-direction: row;
+       * flex-wrap: wrap;
+       */
+      flex-flow: row wrap;
+      
+      /* Then we define how is distributed the remaining space */
+      /*justify-content: space-around;*/
+      
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .slidecontainer {
+      width: 30%; /* Width of the outside container */
+      flex: 1 auto;
+    }
+    .slidecontainer2 {
+        width: 10%; /* Width of the outside container */
+        flex: 1 auto;
+      }
+    .bottom-one {
+       margin-bottom: 1cm;
+    }
+</style>
+<body>
+<canvas id="Canvas1" width="800" height="600"></canvas>
+<br>
+<h3 id="Experiment Label">Error</h3>
+<h4 id="Experiment Description">Description Load Error</h4>
+<div>
+Reference frame for: &#x00A0;&#x00A0; 
+<input type="radio" id="Observer1" name="Observer" value="Observer1" checked="checked">
+<label for="Observer1">Observer 1 &#x00A0;&#x00A0;&#x00A0;&#x00A0;</label>
+<input type="radio" id="Observer2" name="Observer" value="Observer2">
+<label for="Observer2">Observer 2</label></div>
+<br>
+<br>
+<div>
+<input type="radio" id="Running" name="Animation" value="Running">
+<label for="Running">Running</label>
+<input type="radio" id="Stopped" name="Animation" value="Stopped">
+<label for="Stopped">Stopped</label>
+<input type="radio" id="RunningReset" name="Animation" value="Reset">
+<label for="RunningReset">Reset</label>
+</div>
+<script type="text/javascript" src="initialize_variables.js"></script>
+<script type="text/javascript" src="draw_commands.js"></script> 
+<script type="text/javascript" src="simultaneity_commands.js"></script> 
+<script>
+  function init() {
+    ctx1.clearRect(0, 0, WIDTH, HEIGHT);
+    draw_Simultaneity(0);
+    Simultaneity_Description();
+    }
+  init();
+
+  let lastTime = null;
+  function frame(time) {
+    if (lastTime != null) {
+      updateAnimation(Math.min(100, time - lastTime) / 1000);
+    }
+    lastTime = time;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+
+  function updateAnimation(step) {
+    if (t > 250) {
+      AnimationReset.checked=true;
+    }
+    boolRunning = AnimationRunning.checked;
+    boolRunningReset = AnimationReset.checked;
+    check_Observer();
+    ctx1.clearRect(0, 0, WIDTH, HEIGHT);
+    draw_Simultaneity(t);
+    if (boolRunningReset) {
+      t = 0;
+    };
+    if (boolRunning) {
+      t += dt;
+    };
+  }
+
+   
+</script>
+</body>
+</html>
