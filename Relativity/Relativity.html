@@ -50,10 +50,17 @@ Reference frame for: &#x00A0;&#x00A0;
 <div>
 <input type="radio" id="Running" name="Animation" value="Running">
 <label for="Running">Running</label>
-<input type="radio" id="Stopped" name="Animation" value="Stopped">
+<input type="radio" id="Stopped" name="Animation" value="Stopped" checked="checked">
 <label for="Stopped">Stopped</label>
 <input type="radio" id="RunningReset" name="Animation" value="Reset">
 <label for="RunningReset">Reset</label>
+</div>
+<br>
+<div>
+Change time: &#x00A0;&#x00A0;
+<button type="button" onclick="time_back_one()">-1</button>
+<button type="button" onclick="time_forward_one()">+1</button>
+&#x00A0;&#x00A0; &#x00A0;&#x00A0; (best done stopped)
 </div>
 <script type="text/javascript" src="initialize_variables.js"></script>
 <script type="text/javascript" src="draw_commands.js"></script> 
