@@ -8,14 +8,12 @@ ctx1 = Canvas.getContext( '2d' );
 WIDTH = Canvas.width;
 HEIGHT = Canvas.height;
 
+var boolRunning=false;
+
+var Start_Stop_Button = document.getElementById("Start_Stop");
+
 var experiment_label = document.getElementById("Experiment Label");
 var experiment_description = document.getElementById("Experiment Description");
-
-var AnimationRunning = document.getElementById("Running");
-var boolRunning = AnimationRunning.checked;
-var AnimationReset = document.getElementById("RunningReset");
-var boolRunningReset = AnimationReset.checked;
-var AnimationStopped = document.getElementById("Stopped");
 
 var Obs1Frame = document.getElementById("Observer1");
 var Obs2Frame = document.getElementById("Observer2");
@@ -69,3 +67,17 @@ function time_forward_dt() {
 
 var Experiment_Select = document.getElementById("Select Experiment");
 var which_experiment = 0;
+
+function Start_Stop() {
+    boolRunning = !boolRunning;
+    if (boolRunning) {
+        Start_Stop_Button.innerHTML = "Start / <b>Stop</b>";
+    } else {
+      Start_Stop_Button.innerHTML = "<b>Start</b> / Stop";  
+    }
+}
+function Reset() {
+    t = 0;
+    boolRunning = false;
+    Start_Stop_Button.innerHTML = "<b>Start</b> / Stop";
+}

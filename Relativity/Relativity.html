@@ -55,12 +55,8 @@ Reference frame for: &#x00A0;&#x00A0;
 <br>
 <br>
 <div>
-<input type="radio" id="Running" name="Animation" value="Running">
-<label for="Running">Running</label>
-<input type="radio" id="Stopped" name="Animation" value="Stopped" checked="checked">
-<label for="Stopped">Stopped</label>
-<input type="radio" id="RunningReset" name="Animation" value="Reset">
-<label for="RunningReset">Reset</label>
+  <button onclick="Start_Stop()" id="Start_Stop"><b>Start</b> / Stop</button>
+  <button onclick="Reset()">Reset</button>
 </div>
 <br>
 <div>
@@ -141,13 +137,8 @@ Change time: &#x00A0;&#x00A0;
 
 
   function updateAnimation(step) {
-    boolRunning = AnimationRunning.checked;
-    boolRunningReset = AnimationReset.checked;
     check_Observer();
     draw_experiment(t);
-    if (boolRunningReset) {
-      t = 0;
-    };
     if (boolRunning) {
       t += dt;
     };
