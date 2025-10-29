@@ -15,6 +15,7 @@ var AnimationRunning = document.getElementById("Running");
 var boolRunning = AnimationRunning.checked;
 var AnimationReset = document.getElementById("RunningReset");
 var boolRunningReset = AnimationReset.checked;
+var AnimationStopped = document.getElementById("Stopped");
 
 var Obs1Frame = document.getElementById("Observer1");
 var Obs2Frame = document.getElementById("Observer2");
@@ -34,6 +35,7 @@ const dt = 0.1;
 const screen_scaling = 4.0;
 const V_LIGHT = 1.0*screen_scaling;
 var V_OBS = 0.6*screen_scaling;
+const V_LIGHT_ANGLE_Ycomponent = Math.sqrt(V_LIGHT*V_LIGHT - V_OBS*V_OBS);
 var gamma = screen_scaling/Math.sqrt(screen_scaling*screen_scaling - V_OBS*V_OBS);
 var OBSText="";
 
@@ -43,10 +45,27 @@ var XDetector1;
 var XDetector2;
 var XSignal1;
 var XSignal2;
+var SignalDir;
+var TimeOfCollision;
 
+function time_back_ten() {
+    t+=-10;
+}
+function time_forward_ten() {
+    t+=10;
+}
 function time_back_one() {
     t+=-1;
 }
 function time_forward_one() {
     t+=1;
 }
+function time_back_dt() {
+    t+=-0.1;
+}
+function time_forward_dt() {
+    t+=0.1;
+}
+
+var Experiment_Select = document.getElementById("Select Experiment");
+var which_experiment = 0;

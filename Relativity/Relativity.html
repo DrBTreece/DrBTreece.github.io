@@ -35,7 +35,7 @@
     }
 </style>
 <body>
-<canvas id="Canvas1" width="800" height="600"></canvas>
+<canvas id="Canvas1" width="800" height="300"></canvas>
 <br>
 <h3 id="Experiment Label">Error</h3>
 <h4 id="Experiment Description">Description Load Error</h4>
@@ -44,7 +44,14 @@ Reference frame for: &#x00A0;&#x00A0;
 <input type="radio" id="Observer1" name="Observer" value="Observer1" checked="checked">
 <label for="Observer1">Observer 1 &#x00A0;&#x00A0;&#x00A0;&#x00A0;</label>
 <input type="radio" id="Observer2" name="Observer" value="Observer2">
-<label for="Observer2">Observer 2</label></div>
+<label for="Observer2">Observer 2</label>
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0; Experiment: &#x00A0;
+<select name="Select Experiment" id="Select Experiment" onchange="change_experiment()">
+  <option value="Simultaneity" selected="selected">Simultaneity</option>
+  <option value="Time Dilation">Time Dilation</option>
+  <option value="Length Contraction">Length Contraction</option>
+</select>
+</div>
 <br>
 <br>
 <div>
@@ -58,13 +65,21 @@ Reference frame for: &#x00A0;&#x00A0;
 <br>
 <div>
 Change time: &#x00A0;&#x00A0;
+<button type="button" onclick="time_back_ten()">-10</button>
+<button type="button" onclick="time_forward_ten()">+10</button>
+&#x00A0;&#x00A0; &#x00A0;&#x00A0; 
 <button type="button" onclick="time_back_one()">-1</button>
 <button type="button" onclick="time_forward_one()">+1</button>
+&#x00A0;&#x00A0; &#x00A0;&#x00A0; 
+<button type="button" onclick="time_back_dt()">-0.1</button>
+<button type="button" onclick="time_forward_dt()">+0.1</button>
 &#x00A0;&#x00A0; &#x00A0;&#x00A0; (best done stopped)
 </div>
 <script type="text/javascript" src="initialize_variables.js"></script>
-<script type="text/javascript" src="draw_commands.js"></script> 
-<script type="text/javascript" src="simultaneity_commands.js"></script> 
+<script type="text/javascript" src="draw_commands.js"></script>
+<script type="text/javascript" src="simultaneity_commands.js"></script>
+<script type="text/javascript" src="time_dilation_commands.js"></script>
+<script type="text/javascript" src="length_contraction_commands.js"></script>
 <script>
   function init() {
     ctx1.clearRect(0, 0, WIDTH, HEIGHT);
@@ -72,6 +87,47 @@ Change time: &#x00A0;&#x00A0;
     Simultaneity_Description();
     }
   init();
+
+  function draw_experiment(t) {
+    if (which_experiment==0) {
+    if (t > 151) {
+      AnimationReset.checked=true;
+    }
+      draw_Simultaneity(t);
+      Simultaneity_Description();
+    } else if (which_experiment==1) {
+    if (t > 65) {
+      AnimationReset.checked=true;
+    }
+      draw_Time_Dilation(t);
+      Time_Dilation_Description();
+    } else if (which_experiment==2) {
+    if (t > 135) {
+      AnimationReset.checked=true;
+    }
+      draw_Length_Contraction(t);
+      Length_Contraction_Description();
+    }
+  }
+
+  function change_experiment() {
+    if (Experiment_Select.value=="Simultaneity") {
+      which_experiment = 0;
+    } else if (Experiment_Select.value=="Time Dilation") {
+      which_experiment = 1;
+    } else if (Experiment_Select.value=="Length Contraction") {
+      which_experiment = 2;
+      TimeOfCollision = 200/(gamma*(V_OBS+V_LIGHT));
+    }
+    AnimationStopped.checked=true;
+    t=0;
+    draw_experiment(t);
+  }
+//$$$$$$$$$$$$$$$$
+  // Experiment_Select.value="Length Contraction";
+  // which_experiment=2;
+  // change_experiment();
+//$$$$$$$$$$$$$$$$
 
   let lastTime = null;
   function frame(time) {
@@ -85,14 +141,10 @@ Change time: &#x00A0;&#x00A0;
 
 
   function updateAnimation(step) {
-    if (t > 250) {
-      AnimationReset.checked=true;
-    }
     boolRunning = AnimationRunning.checked;
     boolRunningReset = AnimationReset.checked;
     check_Observer();
-    ctx1.clearRect(0, 0, WIDTH, HEIGHT);
-    draw_Simultaneity(t);
+    draw_experiment(t);
     if (boolRunningReset) {
       t = 0;
     };

@@ -27,7 +27,7 @@ if (ObserverFrame==1) {
     ctx1.fillStyle = "red";
     OBSText="Observer 2 ";
 }
-ctx1.fillText(OBSText+"time: "+Math.floor(t),XOrigin-100,275);
+ctx1.fillText(OBSText+"time: "+t.toFixed(1),XOrigin-100,275);
 }
 
 function drawLight(x,y,color="blue") {
@@ -65,24 +65,60 @@ ctx1.strokeStyle='#6600AA';
 ctx1.stroke();
 }
 
-
-
-function computeXSimultaneity(t) {
-if (ObserverFrame==1) {
-    XObs1 = XOrigin;
-    XObs2 = XOrigin + V_OBS*t;
-    XDetector1 = XOrigin - 200;
-    XDetector2 = XOrigin + 200;
-    XSignal1 = XDetector1 + V_LIGHT*t;
-    XSignal2 = XDetector2 - V_LIGHT*t;
-} else {
-    XObs1 = XOrigin - V_OBS*t;
-    XObs2 = XOrigin;
-    XDetector1 = XOrigin - (200/gamma) - V_OBS*t;
-    XDetector2 = XOrigin + (200/gamma) - V_OBS*t;
-    XSignal1 = XOrigin - Math.sqrt((V_LIGHT+V_OBS)/(V_LIGHT-V_OBS))*200 + V_LIGHT*t;
-    XSignal2 = XOrigin + Math.sqrt((V_LIGHT-V_OBS)/(V_LIGHT+V_OBS))*200 - V_LIGHT*t;
-    if (XSignal1 < XDetector1) { XSignal1 = - 1000;}
-    if (XSignal2 > XDetector2) { XSignal2 = - 1000;}
+function drawSignalY(x,y,direction=1.0) {
+    let DirFactor = 0.5*(direction+1.0);
+    ctx1.beginPath();
+    ctx1.arc(x,y+7.5*direction,5, DirFactor*Math.PI, (DirFactor+1)*Math.PI);
+    ctx1.strokeStyle='#6600AA';
+    ctx1.stroke();
+    ctx1.beginPath();
+    ctx1.arc(x, y+7.5*direction, 10, DirFactor*Math.PI, (DirFactor+1)*Math.PI);
+    ctx1.strokeStyle='#6600AA';
+    ctx1.stroke();
 }
+
+function drawEmitterSensor(x,y) {
+    // chord of 20, angle of 2 pi / 3, radius of 11.47
+    ctx1.beginPath();
+    ctx1.moveTo(x, y-10);
+    ctx1.arc(x+0.5*11.55, y, 11.55, 1.3333*Math.PI, 0.6666*Math.PI, true);
+    ctx1.lineTo(x-20,y+10);
+    ctx1.lineTo(x-20,y-10);
+    ctx1.lineTo(x,y-10);
+    ctx1.fillStyle='#6600AA';
+    ctx1.fill();
+}
+
+function drawEmitterSensorY(x,y) {
+    // chord of 20, angle of 2 pi / 3, radius of 11.47
+    ctx1.beginPath();
+    ctx1.moveTo(x+10, y);
+    ctx1.arc(x, y-0.5*11.55, 11.55, -1.8333*Math.PI, -1.1666*Math.PI);
+    ctx1.lineTo(x-10,y+20);
+    ctx1.lineTo(x+10,y+20);
+    ctx1.lineTo(x+10,y);
+    ctx1.fillStyle='#6600AA';
+    ctx1.fill();
+}
+
+function drawMirror(x,y) {
+    ctx1.beginPath();
+    ctx1.moveTo(x, y-20);
+    ctx1.lineTo(x, y+20);
+    ctx1.lineTo(x+5, y+20);
+    ctx1.lineTo(x+5, y-20);
+    ctx1.lineTo(x, y-20);
+    ctx1.fillStyle = '#6600AA';
+    ctx1.fill();
+}
+
+function drawMirrorY(x,y) {
+    ctx1.beginPath();
+    ctx1.moveTo(x+20, y);
+    ctx1.lineTo(x-20, y);
+    ctx1.lineTo(x-20, y-5);
+    ctx1.lineTo(x+20, y-5);
+    ctx1.lineTo(x+20, y);
+    ctx1.fillStyle = '#6600AA';
+    ctx1.fill();
 }
