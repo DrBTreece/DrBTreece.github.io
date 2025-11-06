@@ -55,6 +55,12 @@ function draw_Obs() {
 
     ctx.fillStyle="#000000";
     ctx.fill();
+
+    ctx.fillStyle="#000000";
+    ctx.font = "12px Arial";
+    ctx.textAlign="left"
+    ctx.textBaseline = "middle";
+    ctx.fillText("(not moving)", XObs+25, YObs);
 }
 
 function draw_Stars_A() {
