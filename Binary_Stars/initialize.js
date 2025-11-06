@@ -49,7 +49,7 @@
   }
 
   var Time_Label = document.getElementById("Time_Label");
-  Time_Label.innerHTML = t.toFixed(1) + " s";
+  Time_Label.innerHTML = t.toFixed(1) + " y";
 
   var boolRunning = false;
   var Start_Stop_Button = document.getElementById("Start_Stop");

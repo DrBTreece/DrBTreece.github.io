@@ -1,3 +1,21 @@
+function draw_Axes() {
+    ctx.beginPath();
+    ctx.moveTo(20, 290);
+    ctx.lineTo(10,290);
+    ctx.lineTo(10,280);
+    ctx.strokeStyle='#000000';
+    ctx.stroke();
+
+    ctx.fillStyle="#000000";
+    ctx.font = "12px Arial";
+    ctx.textAlign="left"
+    ctx.textBaseline = "middle";
+    ctx.fillText("x", 25, 290);
+    ctx.textAlign="center"
+    ctx.textBaseline = "bottom";
+    ctx.fillText("y", 10, 275);
+}
+
 function draw_Earth() {
     ctx.beginPath();
     ctx.arc(X[0], Y[0], 25, 0, 2*Math.PI);

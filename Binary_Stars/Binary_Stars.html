@@ -46,11 +46,11 @@ Observer's Velocity (as seen from Earth): &#x00A0;&#x00A0;&#x00A0;&#x00A0;
 <br>
 <div>
 Time: &#x00A0;&#x00A0;&#x00A0;&#x00A0;
-<button onclick="Time_Decrease_Tenth()">-0.1 s</button>
-<button onclick="Time_Decrease_One()">-1.0 s</button>
+<button onclick="Time_Decrease_Tenth()">-0.1 y</button>
+<button onclick="Time_Decrease_One()">-1.0 y</button>
 &#x00A0;&#x00A0;&#x00A0;&#x00A0; <span id="Time_Label">T</span> &#x00A0;&#x00A0;&#x00A0;&#x00A0;
-<button onclick="Time_Increase_One()">+1.0 s</button>
-<button onclick="Time_Increase_Tenth()">+0.1 s</button>
+<button onclick="Time_Increase_One()">+1.0 y</button>
+<button onclick="Time_Increase_Tenth()">+0.1 y</button>
 </div>
 <br>
 <div>
@@ -76,10 +76,11 @@ Distance Labels: &#x00A0;&#x00A0;&#x00A0;&#x00A0; <button onclick="Switch_Labels
   }
 
   function update_screen() {
-      Time_Label.innerHTML = t.toFixed(1) + " s";
+      Time_Label.innerHTML = t.toFixed(1) + " y";
       
       ctx.clearRect(0,0, WIDTH,HEIGHT);
       compute_Positions();
+      draw_Axes();
       draw_Earth();
       draw_Obs();
       draw_Stars_A();
