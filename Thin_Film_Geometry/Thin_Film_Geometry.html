@@ -1,0 +1,176 @@
+<html>
+<title>Thin Film Geometry</title>
+<head>
+</head>
+<style>
+    .flex-container {
+      /* We first create a flex layout context */
+      display: flex;
+      
+      /* Then we define the flow direction
+         and if we allow the items to wrap
+       * Remember this is the same as:
+       * flex-direction: row;
+       * flex-wrap: wrap;
+       */
+      flex-flow: row wrap;
+      
+      /* Then we define how is distributed the remaining space */
+      /*justify-content: space-around;*/
+      
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .slidecontainer {
+      width: 30%; /* Width of the outside container */
+      flex: 1 auto;
+    }
+    .slidecontainer2 {
+        width: 10%; /* Width of the outside container */
+        flex: 1 auto;
+      }
+    .bottom-one {
+       margin-bottom: 1cm;
+    }
+</style>
+<body>
+<canvas id="Canvas1" width="800" height="500"></canvas>
+<p>&#x00A0;</p>
+<div>
+  <input type="range" id="incident" name="incident" min="1" max="89" value="38" step="1" oninput="update_incident_label()" />
+  <label for="incident" id="incident_label">incident angle</label>
+</div>
+<div>
+  <input type="range" id="index" name="index" min="1" max="2.5" value="1.5" step="0.1" oninput="update_index_label()" />
+  <label for="index" id="index_label">film index of refraction</label>
+</div>
+<br>
+<div>
+Time: &#x00A0;&#x00A0;&#x00A0;&#x00A0;
+<button onclick="Time_Decrease_Tenth()">-0.1 s</button>
+<button onclick="Time_Decrease_One()">-1.0 s</button>
+&#x00A0;&#x00A0;&#x00A0;&#x00A0; <span id="Time_Label">T</span> &#x00A0;&#x00A0;&#x00A0;&#x00A0;
+<button onclick="Time_Increase_One()">+1.0 s</button>
+<button onclick="Time_Increase_Tenth()">+0.1 s</button>
+</div>
+<br>
+<div>
+  <button onclick="Start_Stop()" id="Start_Stop"><b>Start</b> / Stop</button>
+  <button onclick="Reset()">Reset</button>
+</div>
+<br>
+<div>
+  Masks: &#x00A0;&#x00A0;&#x00A0;&#x00A0; <button onclick="demask()">No Masks</button> <button onclick="Mask1()"> Mask 1</button> <button onclick="Mask2()"> Mask 2</button>
+</div> 
+<!--
+<div>
+Observer's Velocity (as seen from Earth): &#x00A0;&#x00A0;&#x00A0;&#x00A0;
+<button onclick="Velocity_Down()">-0.05 c</button>
+&#x00A0;&#x00A0;&#x00A0;&#x00A0; <span id="Velocity_Label">V</span> &#x00A0;&#x00A0;&#x00A0;&#x00A0;
+<button onclick="Velocity_Up()">+0.05 c</button>
+</div>
+<br>
+
+<br>
+<div>
+Distance Labels: &#x00A0;&#x00A0;&#x00A0;&#x00A0; <button onclick="Switch_Labels()" id="Switch_Labels"></button>
+</div>
+-->
+<script type="text/javascript" src="initialize.js"></script>
+<script type="text/javascript" src="draw_commands.js"></script>
+<script>
+
+function update_screen() {
+   Time_Label.innerHTML = t.toFixed(1) + " s";
+    
+  ctx.clearRect(0,0, WIDTH,HEIGHT);
+  draw_Film();
+  draw_Rays();
+  draw_IR_Rays();
+  draw_T_Rays();
+  if (boolMask1) {draw_Mask_1();}
+  if (boolMask2) {draw_Mask_2();}
+//    compute_Positions();
+//    draw_Axes();
+  //  draw_Earth();
+    //draw_Obs();
+    //draw_Stars_A();
+    //draw_Stars_B();
+    //if (boolLabels){ draw_position_labels(); }
+}
+
+let lastTime = null;
+function frame(time) {
+  if (lastTime != null) {
+    updateAnimation(Math.min(100, time - lastTime) / 1000);
+  }
+  lastTime = time;
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+
+function updateAnimation(step) {
+  //check_Observer();
+  update_screen();
+  if (boolRunning) {
+    t += dt;
+  };
+}
+
+
+ 
+ /*
+
+  function compute_Positions() {
+    // For any object moving linearly: $$ x = x_0 + ut$$
+    // A boosted frame (v) will produce a position function: $$ x' = \frac{c^2}{c^2 - uv} \left( \frac{x_0}{\gamma} + (u - v)t' \right)$$
+    // The prefactor is computed ahead of time: Boost_Prefactor = $$ \frac{c^2}{c^2 - uv} $$
+    for (let i=0; i<X.length; i++) {
+      X[i] = Boost_Prefactor[i]*(  (X0[i]/gamma)   +  velocity_scaling*(U[i] - V_O)*t )     + WIDTH/2;
+    }
+  }
+
+  function update_screen() {
+      Time_Label.innerHTML = t.toFixed(1) + " y";
+      
+      ctx.clearRect(0,0, WIDTH,HEIGHT);
+      compute_Positions();
+      draw_Axes();
+      draw_Earth();
+      draw_Obs();
+      draw_Stars_A();
+      draw_Stars_B();
+      if (boolLabels){ draw_position_labels(); }
+  }
+
+
+
+
+
+
+
+  let lastTime = null;
+  function frame(time) {
+    if (lastTime != null) {
+      updateAnimation(Math.min(100, time - lastTime) / 1000);
+    }
+    lastTime = time;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+
+  function updateAnimation(step) {
+    //check_Observer();
+    update_screen();
+    if (boolRunning) {
+      t += dt;
+    };
+  }
+  */
+
+</script>
+</body>
+</html>
