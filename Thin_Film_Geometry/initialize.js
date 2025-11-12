@@ -59,6 +59,7 @@ Slider_Index_Label.innerHTML = "film index of refraction: " + Slider_Index.value
 n = parseFloat(Slider_Index.value);
 function update_index_label() {
   n = parseFloat(Slider_Index.value);
+  theta_t = Math.asin(Math.sin(theta_i)/n);
   Slider_Index_Label.innerHTML = "film index of refraction: " + Slider_Index.value;
 }
 
