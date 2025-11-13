@@ -1,0 +1,89 @@
+<html>
+<title>Thin Film Interference</title>
+<head>
+</head>
+<style>
+    .flex-container {
+      /* We first create a flex layout context */
+      display: flex;
+      
+      /* Then we define the flow direction
+         and if we allow the items to wrap
+       * Remember this is the same as:
+       * flex-direction: row;
+       * flex-wrap: wrap;
+       */
+      flex-flow: row wrap;
+      
+      /* Then we define how is distributed the remaining space */
+      /*justify-content: space-around;*/
+      
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .slidecontainer {
+      width: 30%; /* Width of the outside container */
+      flex: 1 auto;
+    }
+    .slidecontainer2 {
+        width: 10%; /* Width of the outside container */
+        flex: 1 auto;
+      }
+    .bottom-one {
+       margin-bottom: 1cm;
+    }
+</style>
+<body>
+<canvas id="Canvas1" width="800" height="500"></canvas>
+<p>&#x00A0;</p>
+<div>
+  <input type="range" id="incident" name="incident" min="1" max="89" value="10" step="1" oninput="update_incident_label()" />
+  <label for="incident" id="incident_label">incident angle</label>
+</div>
+<br>
+<div>
+  <input type="range" id="index" name="index" min="1.1" max="2.5" value="1.3" step="0.1" oninput="update_index_label()" />
+  <label for="index" id="index_label">film index of refraction</label>
+</div>
+<br>
+<div>
+  <input type="range" id="thickness" name="thickness" min="0.025" max="0.375" value="0.025" step="0.005" oninput="update_thickness_label()" />
+  <label for="thickness" id="thickness_label">thickness of film</label>
+</div>
+<script type="text/javascript" src="initialize.js"></script>
+<script type="text/javascript" src="color_mixer.js"></script>
+<script type="text/javascript" src="draw_commands.js"></script>
+<script>
+
+
+function update_screen() {
+    
+  ctx.clearRect(0,0, WIDTH,HEIGHT);
+  draw_Film();
+  draw_Rays();
+  draw_Rainbow();
+  draw_Interfered_Color_Swatch();
+}
+update_screen();
+
+/*
+let lastTime = null;
+function frame(time) {
+  if (lastTime != null) {
+    updateAnimation(Math.min(100, time - lastTime) / 1000);
+  }
+  lastTime = time;
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+
+function updateAnimation(step) {
+  update_screen();
+}
+
+*/
+</script>
+</body>
+</html>
